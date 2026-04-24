@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>AGENTUR MICHALSKI x sas</title>
+
+    <style>
+        ul.logo-slider {
+    display: flex;
+    overflow: hidden;
+    list-style: none;
+    padding: 20px;
+    margin: 0;
+}
+
+ul.logo-slider li {
+    flex: 0 0 50%; /* 👈 2 images visible */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+ul.logo-slider img {
+    max-width: 140px;
+}
+    </style>
+
+</head>
+
+<body>
+
+    <ul class="logo-slider">
+        <li><div class="field-content"><img src="/sites/default/files/inline-images/ptm-logo.png" alt="PTM">himanshi1</div></li>
+
+        <li><div class="field-content"><img src="/sites/default/files/inline-images/giz-logo.png" alt="giz">himanshi2</div></li>
+
+        <li><div class="field-content"><img src="/sites/default/files/inline-images/clarity-quest.png" alt="clarity">himanshi3</div></li>
+
+        <li><div class="field-content"><img src="/sites/default/files/inline-images/yarn-logo_0.png" alt="YARN">himanshi4</div></li>
+
+        <li><div class="field-content"><img src="/sites/default/files/inline-images/mtn_0.png" alt="MTN"></div></li>
+
+        <li><div class="field-content"><img src="/sites/default/files/inline-images/liali_0.png" alt="LIALI">himanshi5</div></li>
+
+        <li><div class="field-content"><img src="/sites/default/files/inline-images/iitd.png" alt="IIT DELHI">himanshi6</div></li>
+    </ul>
+<script>
+let slider = document.querySelector(".logo-slider");
+
+function autoSlide() {
+    let first = slider.firstElementChild;
+
+    slider.style.transition = "transform 0.5s ease";
+    slider.style.transform = "translateX(-50%)";
+
+    setTimeout(() => {
+        slider.style.transition = "none";
+        slider.appendChild(first);
+        slider.style.transform = "translateX(0)";
+    }, 500);
+}
+
+setInterval(autoSlide, 2000);
+</script>
+</body>
+
+</html>
