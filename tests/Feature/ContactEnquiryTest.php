@@ -19,7 +19,7 @@ class ContactEnquiryTest extends TestCase
 
         $response = $this->post('/contact', [
             'name' => 'Tripti',
-            'company' => 'Myasha',
+            'company' => 'MYSHA AUTOMATION',
             'email' => 'tripti@example.com',
             'phone' => '838398682',
             'message' => 'I need product details and a quotation.',
@@ -30,7 +30,7 @@ class ContactEnquiryTest extends TestCase
 
         $this->assertDatabaseHas('enquiries', [
             'name' => 'Tripti',
-            'company' => 'Myasha',
+            'company' => 'MYSHA AUTOMATION',
             'email' => 'tripti@example.com',
             'phone' => '838398682',
         ]);

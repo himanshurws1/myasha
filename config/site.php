@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'name' => 'Myasha',
-    'short_name' => 'MYASHA',
+    'name' => 'MYSHA AUTOMATION',
+    'short_name' => 'MYSHA',
     'tagline' => 'Industrial Process Control & Automation Solutions',
     'email' => 'myshasales2023@gmail.com',
     'admin_notification_email' => 'myshasales2023@gmail.com',
@@ -10,10 +10,21 @@ return [
     'phone' => '838398682',
     'phone_href' => 'tel:838398682',
     'address' => '1533, Kotana Suiwallan, Durga Mandir, Daryaganj, New Delhi - 110002',
+    'chatbot' => [
+        'title' => 'MYSHA AUTOMATION Assistant',
+        'subtitle' => 'Product help, company info, and quick guidance',
+        'welcome' => 'Hello! I am the MYSHA AUTOMATION assistant. Ask me about products, industries, contact details, quotations, or support.',
+        'placeholder' => 'Type your question here...',
+        'quick_prompts' => [
+            'What products do you offer?',
+            'How can I request a quotation?',
+            'What is your office address?',
+        ],
+    ],
     'hero' => [
         'eyebrow' => 'Process Instrumentation & Automation',
         'title' => 'Reliable industrial solutions for plants that cannot afford downtime.',
-        'description' => 'Myasha brings together process-control instruments, application guidance, and field-ready support for pharma, dairy, HVAC, FMCG, utilities, and allied industries.',
+        'description' => 'MYSHA AUTOMATION brings together process-control instruments, application guidance, and field-ready support for pharma, dairy, HVAC, FMCG, utilities, and allied industries.',
         'highlights' => [
             'Supply, installation support, and commissioning-focused coordination',
             'Practical instrumentation choices for harsh industrial environments',
@@ -22,7 +33,7 @@ return [
         'cards' => [
             [
                 'title' => 'Complete Package',
-                'text' => 'From pressure and flow instruments to automation support, Myasha is structured like a one-stop industrial sourcing partner.',
+                'text' => 'From pressure and flow instruments to automation support, MYSHA AUTOMATION is structured like a one-stop industrial sourcing partner.',
             ],
             [
                 'title' => 'Technical Expertise',
@@ -121,10 +132,11 @@ return [
         ],
     ],
     'about' => [
-        'lead' => 'Myasha is positioned as an industrial partner for plants that need dependable instrumentation, responsive support, and a clean buying experience.',
+        'lead' => 'MYSHA AUTOMATION is positioned as an industrial partner for plants that need dependable instrumentation, responsive support, and a clean buying experience.',
         'paragraphs' => [
-            'The site is inspired by the reference layout, but branded fully for Myasha with your company details, product categories, and a cleaner Laravel structure that is easier to maintain.',
+            'The site is inspired by the reference layout, but branded fully for MYSHA AUTOMATION with your company details, product categories, and a cleaner Laravel structure that is easier to maintain.',
             'Its messaging focuses on process control, industrial automation, and instrumentation support for applications where accurate measurement and stable operation are critical.',
+            'MYSHA AUTOMATION is presented as a practical industrial solutions company built around measurement, control, and application-focused support for process industries.',
         ],
         'capabilities' => [
             'Pressure, flow, level, analytical, and process instrumentation',
@@ -133,11 +145,65 @@ return [
             'Structured website pages for discovery, trust, and enquiry generation',
         ],
     ],
+    'what_we_offer' => [
+        'title' => 'High-end industrial solutions for productivity, measurement, and process stability.',
+        'text' => 'Inspired by the stronger messaging style seen on Sparko India, this section positions MYSHA AUTOMATION as a reliable source for measurement, control, and automation-linked industrial requirements.',
+        'points' => [
+            'Support for industrial quality and productivity challenges through better measurement choices',
+            'Use of trusted branded products where application reliability matters',
+            'A stronger emphasis on process instruments, automation support, and plant-side usability',
+        ],
+    ],
+    'service_categories' => [
+        [
+            'title' => 'Temperature Measuring Instruments',
+            'text' => 'Temperature instruments for industrial processes, utilities, and application points where repeatability and dependable sensing are important.',
+        ],
+        [
+            'title' => 'Pressure Measuring Instruments',
+            'text' => 'Support for pressure gauges, transmitters, and calibrated measurement solutions designed for accurate plant readings.',
+        ],
+        [
+            'title' => 'Level Measuring Instruments',
+            'text' => 'Level monitoring solutions for tanks, process vessels, water systems, and industrial handling applications.',
+        ],
+        [
+            'title' => 'PLC, HMI & Industrial Software',
+            'text' => 'Automation-oriented support for control systems, interface layers, and plant-side industrial software requirements.',
+        ],
+        [
+            'title' => 'Flow Meter, Flow Switch & Flow Transmitter',
+            'text' => 'Flow measurement products for liquid and gas movement, including switching and transmitter-based monitoring points.',
+        ],
+        [
+            'title' => 'Temperature Division',
+            'text' => 'A dedicated temperature-focused offering around RTDs, thermocouples, thermowells, and related sensing assemblies.',
+        ],
+    ],
+    'featured_strengths' => [
+        [
+            'title' => 'Custom-Fit Sensing Solutions',
+            'text' => 'Like the strongest parts of Sparko India’s positioning, MYSHA AUTOMATION now highlights application-fit products instead of only listing categories.',
+        ],
+        [
+            'title' => 'Help & Support',
+            'text' => 'The website now reflects support for industrial automation, instrumentation selection, and field-oriented project coordination.',
+        ],
+        [
+            'title' => 'What We Offer',
+            'text' => 'The site presents MYSHA AUTOMATION as a company solving industrial measurement and control requirements, not just displaying products.',
+        ],
+    ],
+    'temperature_division' => [
+        'title' => 'Temperature Division',
+        'text' => 'MYSHA AUTOMATION can present temperature-focused solutions around RTDs, thermocouples, thermowells, gauges, and transmitters where stability, repeatability, and application fit are critical.',
+    ],
     'why_choose_us' => [
         'Commitment to work that keeps project communication and delivery clear',
         'Cost-effective product selection aligned with application needs',
         'Solid teamwork between sales guidance and industrial requirements',
         'A practical standard of execution across supply and support touchpoints',
+        'Application-first support for temperature, pressure, level, and flow requirements',
     ],
     'process_steps' => [
         [

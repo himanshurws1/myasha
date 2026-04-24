@@ -44,9 +44,9 @@
 
     <section class="section section--tight">
         <div class="container card-grid card-grid--three">
-            @foreach ($site['hero']['cards'] as $card)
+            @foreach ($site['featured_strengths'] as $card)
                 <article class="info-card">
-                    <p class="info-card__tag">Core Strength</p>
+                    <p class="info-card__tag">Why Customers Choose Us</p>
                     <h3>{{ $card['title'] }}</h3>
                     <p>{{ $card['text'] }}</p>
                 </article>
@@ -77,6 +77,25 @@
     </section>
 
     <section class="section section--alt">
+        <div class="container split-grid">
+            <div>
+                <p class="section-tag">What We Offer</p>
+                <h2>{{ $site['what_we_offer']['title'] }}</h2>
+                <p class="section-copy">{{ $site['what_we_offer']['text'] }}</p>
+            </div>
+
+            <div class="stack-card">
+                <h3>Offer Highlights</h3>
+                <ul class="check-list">
+                    @foreach ($site['what_we_offer']['points'] as $point)
+                        <li>{{ $point }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section--alt">
         <div class="container">
             <div class="section-heading">
                 <div>
@@ -96,6 +115,31 @@
                         <h3>{{ $industry['title'] }}</h3>
                         <p>{{ $industry['summary'] }}</p>
                         <a class="text-link text-link--light" href="{{ route('industries') }}#{{ $industry['slug'] }}">View details</a>
+                    </article>
+                @endforeach
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="section-heading">
+                <div>
+                    <p class="section-tag">Our Services</p>
+                    <h2>Measurement, control, and automation-linked service categories.</h2>
+                </div>
+                <p class="section-copy">
+                    This section is strengthened with the kind of industry wording used on Sparko India, adapted here for
+                    Myasha’s product and support positioning.
+                </p>
+            </div>
+
+            <div class="card-grid">
+                @foreach ($site['service_categories'] as $service)
+                    <article class="product-card">
+                        <p class="info-card__tag">Service Category</p>
+                        <h3>{{ $service['title'] }}</h3>
+                        <p>{{ $service['text'] }}</p>
                     </article>
                 @endforeach
             </div>
@@ -144,6 +188,25 @@
                         <span>{{ $partner }}</span>
                     @endforeach
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container split-grid">
+            <div>
+                <p class="section-tag">{{ $site['temperature_division']['title'] }}</p>
+                <h2>Dedicated temperature-focused messaging for industrial buyers.</h2>
+                <p class="section-copy">{{ $site['temperature_division']['text'] }}</p>
+            </div>
+
+            <div class="stack-card">
+                <h3>Temperature-Focused Scope</h3>
+                <ul class="check-list">
+                    <li>RTD and thermocouple style sensing solutions for industrial measurement points</li>
+                    <li>Thermowell, gauge, switch, and transmitter-oriented application support</li>
+                    <li>Stable and repeatable temperature measurement messaging for plant buyers</li>
+                </ul>
             </div>
         </div>
     </section>

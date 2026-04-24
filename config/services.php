@@ -35,4 +35,9 @@ return [
         ],
     ],
 
+    'xai' => [
+        'api_key' => env('XAI_API_KEY'),
+        'model' => env('XAI_MODEL', 'grok-4.20-reasoning'),
+    ],
+
 ];

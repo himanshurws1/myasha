@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChatbotController;
 use App\Mail\AdminEnquiryNotification;
 use App\Mail\CustomerEnquiryConfirmation;
 use App\Models\Enquiry;
@@ -89,3 +90,5 @@ Route::post('/contact', function (Request $request) {
         ->route('contact')
         ->with('success', 'Your enquiry has been submitted successfully.');
 })->name('contact.submit');
+
+Route::post('/chatbot/message', ChatbotController::class)->name('chatbot.message');

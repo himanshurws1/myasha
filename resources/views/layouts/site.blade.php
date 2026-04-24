@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>{{ $pageTitle ?? 'Myasha' }} | {{ $site['name'] }}</title>
         <meta
             name="description"
@@ -100,6 +101,43 @@
                 @yield('content')
             </main>
 
+            <div class="chatbot" data-chatbot>
+                <button class="chatbot__launcher" type="button" data-chatbot-toggle aria-expanded="false">
+                    <span class="chatbot__launcher-badge">AI</span>
+                    <span class="chatbot__launcher-text">Chat with Us</span>
+                </button>
+
+                <section class="chatbot__panel" data-chatbot-panel hidden>
+                    <div class="chatbot__header">
+                        <div>
+                            <p class="info-card__tag">Live Assistant</p>
+                            <h3>{{ $site['chatbot']['title'] }}</h3>
+                            <p>{{ $site['chatbot']['subtitle'] }}</p>
+                        </div>
+                        <button class="chatbot__close" type="button" data-chatbot-close aria-label="Close chatbot">×</button>
+                    </div>
+
+                    <div class="chatbot__messages" data-chatbot-messages></div>
+
+                    <div class="chatbot__prompts" data-chatbot-prompts>
+                        @foreach ($site['chatbot']['quick_prompts'] as $prompt)
+                            <button class="chatbot__prompt" type="button" data-chatbot-prompt="{{ $prompt }}">{{ $prompt }}</button>
+                        @endforeach
+                    </div>
+
+                    <form class="chatbot__form" data-chatbot-form>
+                        <textarea
+                            class="chatbot__input"
+                            name="message"
+                            rows="1"
+                            maxlength="2000"
+                            placeholder="{{ $site['chatbot']['placeholder'] }}"
+                        ></textarea>
+                        <button class="button chatbot__send" type="submit">Send</button>
+                    </form>
+                </section>
+            </div>
+
             <footer class="footer">
                 <div class="container footer__grid">
                     <div>
@@ -137,6 +175,17 @@
             document.addEventListener('DOMContentLoaded', () => {
                 const nav = document.querySelector('.navbar');
                 const toggle = document.querySelector('.navbar__toggle');
+                const chatbot = document.querySelector('[data-chatbot]');
+                const chatbotPanel = document.querySelector('[data-chatbot-panel]');
+                const chatbotToggle = document.querySelector('[data-chatbot-toggle]');
+                const chatbotClose = document.querySelector('[data-chatbot-close]');
+                const chatbotMessages = document.querySelector('[data-chatbot-messages]');
+                const chatbotForm = document.querySelector('[data-chatbot-form]');
+                const chatbotInput = chatbotForm?.querySelector('textarea[name="message"]');
+                const chatbotPromptButtons = document.querySelectorAll('[data-chatbot-prompt]');
+                const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+                const welcomeMessage = @json($site['chatbot']['welcome']);
+                let chatHistory = [];
 
                 if (!nav || !toggle) {
                     return;
@@ -153,6 +202,116 @@
                         toggle.setAttribute('aria-expanded', 'false');
                     }
                 });
+
+                if (!chatbot || !chatbotPanel || !chatbotToggle || !chatbotMessages || !chatbotForm || !chatbotInput) {
+                    return;
+                }
+
+                const createMessage = (role, text) => {
+                    const item = document.createElement('div');
+                    item.className = `chatbot__message chatbot__message--${role}`;
+                    item.textContent = text;
+                    chatbotMessages.appendChild(item);
+                    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+                };
+
+                const renderMessages = () => {
+                    chatbotMessages.innerHTML = '';
+
+                    if (!chatHistory.length) {
+                        createMessage('assistant', welcomeMessage);
+                        return;
+                    }
+
+                    chatHistory.forEach((entry) => createMessage(entry.role, entry.content));
+                };
+
+                const setChatOpen = (isOpen) => {
+                    chatbot.classList.toggle('is-open', isOpen);
+                    chatbotPanel.hidden = !isOpen;
+                    chatbotToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+
+                    if (isOpen) {
+                        renderMessages();
+                        chatbotInput.focus();
+                    }
+                };
+
+                const showTyping = () => {
+                    const typing = document.createElement('div');
+                    typing.className = 'chatbot__message chatbot__message--assistant chatbot__message--typing';
+                    typing.textContent = 'Typing...';
+                    typing.setAttribute('data-chatbot-typing', 'true');
+                    chatbotMessages.appendChild(typing);
+                    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+                };
+
+                const hideTyping = () => {
+                    chatbotMessages.querySelector('[data-chatbot-typing="true"]')?.remove();
+                };
+
+                const submitMessage = async (text) => {
+                    const trimmed = text.trim();
+
+                    if (!trimmed) {
+                        return;
+                    }
+
+                    const historyBeforeRequest = [...chatHistory];
+                    chatHistory = [...chatHistory, { role: 'user', content: trimmed }].slice(-12);
+                    renderMessages();
+                    chatbotInput.value = '';
+                    showTyping();
+
+                    try {
+                        const response = await fetch(@json(route('chatbot.message')), {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Accept': 'application/json',
+                                'X-CSRF-TOKEN': csrfToken ?? '',
+                            },
+                            body: JSON.stringify({
+                                message: trimmed,
+                                history: historyBeforeRequest.slice(-10),
+                            }),
+                        });
+
+                        const data = await response.json();
+                        hideTyping();
+
+                        if (!response.ok) {
+                            const errorMessage = data.message || 'The chatbot is unavailable right now.';
+                            chatHistory = [...chatHistory, { role: 'assistant', content: errorMessage }].slice(-12);
+                            renderMessages();
+                            return;
+                        }
+
+                        chatHistory = [...chatHistory, { role: 'assistant', content: data.reply }].slice(-12);
+                        renderMessages();
+                    } catch (error) {
+                        hideTyping();
+                        chatHistory = [
+                            ...chatHistory,
+                            { role: 'assistant', content: 'Connection issue. Please try again in a moment.' }
+                        ].slice(-12);
+                        renderMessages();
+                    }
+                };
+
+                chatbotToggle.addEventListener('click', () => setChatOpen(!chatbot.classList.contains('is-open')));
+                chatbotClose?.addEventListener('click', () => setChatOpen(false));
+
+                chatbotForm.addEventListener('submit', (event) => {
+                    event.preventDefault();
+                    submitMessage(chatbotInput.value);
+                });
+
+                chatbotPromptButtons.forEach((button) => {
+                    button.addEventListener('click', () => submitMessage(button.dataset.chatbotPrompt || ''));
+                });
+
+                renderMessages();
             });
         </script>
     </body>

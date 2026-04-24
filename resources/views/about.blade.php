@@ -36,6 +36,25 @@
     </section>
 
     <section class="section section--alt">
+        <div class="container split-grid">
+            <div>
+                <p class="section-tag">What We Offer</p>
+                <h2>{{ $site['what_we_offer']['title'] }}</h2>
+                <p class="section-copy">{{ $site['what_we_offer']['text'] }}</p>
+            </div>
+
+            <div class="stack-card">
+                <h3>Offer Highlights</h3>
+                <ul class="check-list">
+                    @foreach ($site['what_we_offer']['points'] as $point)
+                        <li>{{ $point }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section--alt">
         <div class="container">
             <div class="section-heading">
                 <div>
@@ -49,6 +68,27 @@
                     <article class="specialization-card">
                         <span>{{ str_pad((string) ($loop->iteration), 2, '0', STR_PAD_LEFT) }}</span>
                         <h3>{{ $specialization }}</h3>
+                    </article>
+                @endforeach
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="section-heading">
+                <div>
+                    <p class="section-tag">Service Focus</p>
+                    <h2>Instrumentation and automation support areas shown more clearly.</h2>
+                </div>
+            </div>
+
+            <div class="card-grid">
+                @foreach ($site['service_categories'] as $service)
+                    <article class="product-card">
+                        <p class="info-card__tag">Service Category</p>
+                        <h3>{{ $service['title'] }}</h3>
+                        <p>{{ $service['text'] }}</p>
                     </article>
                 @endforeach
             </div>

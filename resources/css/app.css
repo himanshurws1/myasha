@@ -955,6 +955,171 @@ textarea {
     font-weight: 700;
 }
 
+.chatbot {
+    position: fixed;
+    right: 1.4rem;
+    bottom: 1.4rem;
+    z-index: 40;
+}
+
+.chatbot__launcher {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.85rem 1rem 0.85rem 0.85rem;
+    border: 0;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--accent), #ffb14f);
+    color: #1d1308;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+    cursor: pointer;
+}
+
+.chatbot__launcher-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: rgba(7, 19, 29, 0.14);
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+}
+
+.chatbot__launcher-text {
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.chatbot__panel {
+    width: min(390px, calc(100vw - 1.5rem));
+    margin-top: 0.8rem;
+    margin-left: auto;
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background:
+        linear-gradient(180deg, rgba(239, 125, 34, 0.08), rgba(8, 23, 34, 0.98) 18%),
+        rgba(8, 23, 34, 0.98);
+    box-shadow: 0 28px 70px rgba(0, 0, 0, 0.34);
+    overflow: hidden;
+}
+
+.chatbot__header,
+.chatbot__form {
+    padding: 1rem;
+}
+
+.chatbot__header {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    gap: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.chatbot__header h3 {
+    margin: 0.35rem 0 0;
+    color: var(--text);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.8rem;
+}
+
+.chatbot__header p:not(.info-card__tag) {
+    margin: 0.35rem 0 0;
+    color: rgba(232, 241, 245, 0.72);
+    line-height: 1.6;
+}
+
+.chatbot__close {
+    width: 38px;
+    height: 38px;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text);
+    font-size: 1.4rem;
+    cursor: pointer;
+}
+
+.chatbot__messages {
+    display: grid;
+    gap: 0.85rem;
+    max-height: 360px;
+    padding: 1rem;
+    overflow-y: auto;
+}
+
+.chatbot__message {
+    max-width: 88%;
+    padding: 0.85rem 1rem;
+    border-radius: 18px;
+    line-height: 1.65;
+    white-space: pre-wrap;
+}
+
+.chatbot__message--assistant {
+    justify-self: start;
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text);
+    border-top-left-radius: 8px;
+}
+
+.chatbot__message--user {
+    justify-self: end;
+    background: linear-gradient(135deg, var(--accent), #ffb14f);
+    color: #1d1308;
+    border-top-right-radius: 8px;
+}
+
+.chatbot__message--typing {
+    color: rgba(232, 241, 245, 0.66);
+}
+
+.chatbot__prompts {
+    display: flex;
+    gap: 0.55rem;
+    padding: 0 1rem 1rem;
+    flex-wrap: wrap;
+}
+
+.chatbot__prompt {
+    padding: 0.65rem 0.85rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.03);
+    color: rgba(232, 241, 245, 0.9);
+    cursor: pointer;
+}
+
+.chatbot__form {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0.75rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.chatbot__input {
+    min-height: 54px;
+    max-height: 140px;
+    padding: 0.9rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    resize: vertical;
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text);
+}
+
+.chatbot__input::placeholder {
+    color: rgba(232, 241, 245, 0.48);
+}
+
+.chatbot__send {
+    align-self: end;
+}
+
 .footer {
     padding: 4rem 0;
     background: #091521;
@@ -1207,5 +1372,24 @@ textarea {
     .hero,
     .page-hero {
         padding: 2.8rem 0 2.4rem;
+    }
+
+    .chatbot {
+        right: 0.8rem;
+        bottom: 0.8rem;
+        left: 0.8rem;
+    }
+
+    .chatbot__launcher,
+    .chatbot__panel {
+        width: 100%;
+    }
+
+    .chatbot__form {
+        grid-template-columns: 1fr;
+    }
+
+    .chatbot__send {
+        width: 100%;
     }
 }
