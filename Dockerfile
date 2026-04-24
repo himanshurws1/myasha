@@ -12,13 +12,19 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 RUN composer install --no-dev --optimize-autoloader
 
-# 🔥 Laravel cache clear
-RUN php artisan config:clear && php artisan cache:clear && php artisan view:clear
+# 🔥 ENV force set (IMPORTANT)
+ENV APP_ENV=production
+ENV APP_DEBUG=true
 
-# 🔥 permissions fix (VERY IMPORTANT)
+# 🔥 Laravel fix commands
+RUN php artisan config:clear
+RUN php artisan cache:clear
+RUN php artisan view:clear
+RUN php artisan route:clear
+
+# 🔥 permissions
 RUN chmod -R 775 storage bootstrap/cache
 
-# optional but useful
 EXPOSE 8000
 
 CMD php artisan serve --host=0.0.0.0 --port=$PORT
