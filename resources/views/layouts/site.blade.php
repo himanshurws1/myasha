@@ -138,6 +138,10 @@
                 </section>
             </div>
 
+            <button class="scroll-top" type="button" data-scroll-top aria-label="Scroll to top">
+                ↑
+            </button>
+
             <footer class="footer">
                 <div class="container footer__grid">
                     <div>
@@ -185,6 +189,7 @@
                 const chatbotPromptButtons = document.querySelectorAll('[data-chatbot-prompt]');
                 const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
                 const welcomeMessage = @json($site['chatbot']['welcome']);
+                const scrollTopButton = document.querySelector('[data-scroll-top]');
                 let chatHistory = [];
 
                 if (!nav || !toggle) {
@@ -202,6 +207,18 @@
                         toggle.setAttribute('aria-expanded', 'false');
                     }
                 });
+
+                if (scrollTopButton) {
+                    const toggleScrollTop = () => {
+                        scrollTopButton.classList.toggle('is-visible', window.scrollY > 280);
+                    };
+
+                    toggleScrollTop();
+                    window.addEventListener('scroll', toggleScrollTop, { passive: true });
+                    scrollTopButton.addEventListener('click', () => {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    });
+                }
 
                 if (!chatbot || !chatbotPanel || !chatbotToggle || !chatbotMessages || !chatbotForm || !chatbotInput) {
                     return;
