@@ -1477,9 +1477,10 @@ textarea {
         position: fixed;
         right: 0.8rem;
         left: 0.8rem;
-        bottom: 4.9rem;
+        top: 0.8rem;
+        bottom: 0.8rem;
         width: auto;
-        max-height: calc(100vh - 6.2rem);
+        max-height: calc(100dvh - 1.6rem);
         margin: 0;
         border-radius: 22px;
     }
@@ -1521,7 +1522,25 @@ textarea {
     }
 
     .chatbot__messages {
-        min-height: 160px;
+        min-height: 0;
+    }
+
+    .chatbot__prompts {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding-bottom: 0.8rem;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+
+    .chatbot__prompts::-webkit-scrollbar {
+        display: none;
+    }
+
+    .chatbot__prompt {
+        flex: 0 0 auto;
+        white-space: nowrap;
     }
 
     .chatbot__form {
