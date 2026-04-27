@@ -16,14 +16,18 @@ class ContactEnquiryTest extends TestCase
     public function test_contact_enquiry_is_saved_to_database(): void
     {
         Mail::fake();
+        $token = 'test-token';
 
-        $response = $this->post('/contact', [
-            'name' => 'Tripti',
-            'company' => 'MYSHA AUTOMATION',
-            'email' => 'tripti@example.com',
-            'phone' => '838398682',
-            'message' => 'I need product details and a quotation.',
-        ]);
+        $response = $this
+            ->withSession(['_token' => $token])
+            ->post('/contact', [
+                '_token' => $token,
+                'name' => 'Tripti',
+                'company' => 'MYSHA AUTOMATION',
+                'email' => 'tripti@example.com',
+                'phone' => '838398682',
+                'message' => 'I need product details and a quotation.',
+            ]);
 
         $response->assertRedirect('/contact');
         $response->assertSessionHas('success');

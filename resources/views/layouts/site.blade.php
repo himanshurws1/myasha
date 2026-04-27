@@ -114,7 +114,7 @@
                             <h3>{{ $site['chatbot']['title'] }}</h3>
                             <p>{{ $site['chatbot']['subtitle'] }}</p>
                         </div>
-                        <button class="chatbot__close" type="button" data-chatbot-close aria-label="Close chatbot">×</button>
+                        <button class="chatbot__close" type="button" data-chatbot-close aria-label="Close chatbot">&times;</button>
                     </div>
 
                     <div class="chatbot__messages" data-chatbot-messages></div>
@@ -139,7 +139,7 @@
             </div>
 
             <button class="scroll-top" type="button" data-scroll-top aria-label="Scroll to top">
-                ↑
+                &uarr;
             </button>
 
             <footer class="footer">
@@ -218,6 +218,50 @@
                     scrollTopButton.addEventListener('click', () => {
                         window.scrollTo({ top: 0, behavior: 'smooth' });
                     });
+                }
+
+                const scrollPopGroups = document.querySelectorAll('[data-scroll-pop]');
+
+                if (scrollPopGroups.length) {
+                    const revealCards = () => {
+                        scrollPopGroups.forEach((group) => {
+                            const cards = group.querySelectorAll('.product-card');
+
+                            cards.forEach((card, index) => {
+                                card.classList.add('scroll-pop-card');
+                                card.style.setProperty('--scroll-pop-delay', `${Math.min(index * 90, 360)}ms`);
+                                card.classList.add('is-visible');
+                            });
+                        });
+                    };
+
+                    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
+                        revealCards();
+                    } else {
+                        const observer = new IntersectionObserver((entries, currentObserver) => {
+                            entries.forEach((entry) => {
+                                if (!entry.isIntersecting) {
+                                    return;
+                                }
+
+                                const cards = entry.target.querySelectorAll('.product-card');
+                                cards.forEach((card, index) => {
+                                    card.classList.add('scroll-pop-card');
+                                    card.style.setProperty('--scroll-pop-delay', `${Math.min(index * 90, 360)}ms`);
+                                    requestAnimationFrame(() => {
+                                        card.classList.add('is-visible');
+                                    });
+                                });
+
+                                currentObserver.unobserve(entry.target);
+                            });
+                        }, {
+                            threshold: 0.18,
+                            rootMargin: '0px 0px -40px 0px',
+                        });
+
+                        scrollPopGroups.forEach((group) => observer.observe(group));
+                    }
                 }
 
                 if (!chatbot || !chatbotPanel || !chatbotToggle || !chatbotMessages || !chatbotForm || !chatbotInput) {

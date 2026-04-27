@@ -14,6 +14,7 @@ class ChatbotTest extends TestCase
     {
         config()->set('services.xai.api_key', 'test-key');
         config()->set('services.xai.model', 'grok-4.20-reasoning');
+        $token = 'test-token';
 
         Http::fake([
             'https://api.x.ai/v1/responses' => Http::response([
@@ -21,10 +22,13 @@ class ChatbotTest extends TestCase
             ], 200),
         ]);
 
-        $response = $this->postJson('/chatbot/message', [
-            'message' => 'What products do you offer?',
-            'history' => [],
-        ]);
+        $response = $this
+            ->withSession(['_token' => $token])
+            ->withHeader('X-CSRF-TOKEN', $token)
+            ->postJson('/chatbot/message', [
+                'message' => 'What products do you offer?',
+                'history' => [],
+            ]);
 
         $response->assertOk();
         $response->assertJson([
@@ -36,10 +40,14 @@ class ChatbotTest extends TestCase
     public function test_chatbot_endpoint_returns_configuration_error_without_api_key(): void
     {
         config()->set('services.xai.api_key', null);
+        $token = 'test-token';
 
-        $response = $this->postJson('/chatbot/message', [
-            'message' => 'Hello',
-        ]);
+        $response = $this
+            ->withSession(['_token' => $token])
+            ->withHeader('X-CSRF-TOKEN', $token)
+            ->postJson('/chatbot/message', [
+                'message' => 'Hello',
+            ]);
 
         $response->assertStatus(503);
         $response->assertJson([

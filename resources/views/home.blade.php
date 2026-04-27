@@ -156,7 +156,7 @@
                 <a class="button button--small" href="{{ route('products.index') }}">View All Categories</a>
             </div>
 
-            <div class="card-grid">
+            <div class="card-grid" data-scroll-pop>
                 @foreach ($site['product_categories'] as $slug => $category)
                     <article class="product-card">
                         <p class="info-card__tag">Category</p>

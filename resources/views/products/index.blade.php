@@ -12,7 +12,7 @@
     </section>
 
     <section class="section">
-        <div class="container card-grid">
+        <div class="container card-grid" data-scroll-pop>
             @foreach ($site['product_categories'] as $slug => $category)
                 <article class="product-card product-card--large">
                     <p class="info-card__tag">Category {{ str_pad((string) ($loop->iteration), 2, '0', STR_PAD_LEFT) }}</p>
